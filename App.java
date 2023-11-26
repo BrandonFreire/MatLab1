@@ -13,7 +13,7 @@ public class App {
         factorial(numeroProposiciones);
         int numeroCombinacionesProposiciones = factorial(numeroProposiciones)
                 / (factorial(numeroProposiciones - 2) * 2);
-        int numerOperaciones = numeroProposiciones + numeroCombinacionesProposiciones * 4;
+        int numerOperaciones = numeroProposiciones + numeroCombinacionesProposiciones * 3;
         tablaVerdad = new String[1 + (int) Math.pow(2, numeroProposiciones)][numeroProposiciones + numerOperaciones];
         tamFilas = 1 + (int) Math.pow(2, numeroProposiciones);
         char nombreProposicion = 97;
