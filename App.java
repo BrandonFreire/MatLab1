@@ -20,6 +20,7 @@ public class App {
         negacion(tablaVerdad, 0, numeroProposiciones, numeroProposiciones);
         disyuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2);
         conjuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2+numeroCombinacionesProposiciones);
+        implicacion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2+numeroCombinacionesProposiciones);
         imprimirTablaVerdad(tablaVerdad);
     }
 
@@ -126,6 +127,28 @@ public class App {
                 proposicion2 = proposicion1 + 1;
             }
             return conjuncion(tablaVerdad, ++columnas, numeroCombinacionesProposiciones, proposicion1, proposicion2,
+                    numeroProposiciones, ++columnaResultado);
+        }
+        return tablaVerdad;
+    }
+    public static String[][] implicacion(String[][] tablaVerdad, int columnas, int numeroCombinacionesProposiciones,
+            int proposicion1, int proposicion2,int numeroProposiciones, int columnaResultado) {
+        if (numeroCombinacionesProposiciones > columnas) {
+            tablaVerdad[0][columnaResultado] = tablaVerdad[0][proposicion1] + "->" + tablaVerdad[0][proposicion2];
+            for (int i = 1; i < tablaVerdad.length; i++) {
+                if (tablaVerdad[i][proposicion1].equals("V") && tablaVerdad[i][proposicion2].equals("F")) {
+                    tablaVerdad[i][columnaResultado] = "  F";
+                } else {
+                    tablaVerdad[i][columnaResultado] = "  V";
+                }
+            }
+            if (proposicion2 < numeroProposiciones - 1) {
+                proposicion2++;
+            } else {
+                proposicion1++;
+                proposicion2 = proposicion1 + 1;
+            }
+            return implicacion(tablaVerdad, ++columnas, numeroCombinacionesProposiciones, proposicion1, proposicion2,
                     numeroProposiciones, ++columnaResultado);
         }
         return tablaVerdad;
