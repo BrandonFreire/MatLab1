@@ -136,11 +136,18 @@ public class requerido {
         }
         return tablaVerdad;
     }
+    /**
+     * Calcula la doble implicacion (metodo recursivo)
+     * 
+     * @param tablaVerdad
+     * @param columnaResultado
+     * @return
+     */
     public static String[][] dobleImplicacion(String[][] tablaVerdad, int columnaResultado){
         tablaVerdad[0][columnaResultado] = tablaVerdad[0][0] + "<->" + tablaVerdad[0][1];
         for(int i = 1; i < tablaVerdad.length; i++){
             if(tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("V")){
-
+                tablaVerdad[i][columnaResultado]=" V";
             }else{
 
             }
