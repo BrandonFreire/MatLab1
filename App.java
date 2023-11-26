@@ -9,18 +9,24 @@ public class App {
         Scanner ingresoDatos = new Scanner(System.in);
         System.out.print("Ingrese el numero de proposiciones: ");
         numeroProposiciones = Integer.parseInt(ingresoDatos.nextLine());
+        
         factorial(numeroProposiciones);
         int numeroCombinacionesProposiciones = factorial(numeroProposiciones)
                 / (factorial(numeroProposiciones - 2) * 2);
-        int numerOperaciones = numeroProposiciones + numeroCombinacionesProposiciones * 2;
+        int numerOperaciones = numeroProposiciones + numeroCombinacionesProposiciones * 4;
         tablaVerdad = new String[1 + (int) Math.pow(2, numeroProposiciones)][numeroProposiciones + numerOperaciones];
         tamFilas = 1 + (int) Math.pow(2, numeroProposiciones);
         char nombreProposicion = 97;
         tablaVerdad = llenarTabla(tablaVerdad, numeroProposiciones, tamFilas, 0, nombreProposicion);
         negacion(tablaVerdad, 0, numeroProposiciones, numeroProposiciones);
-        disyuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2);
-        conjuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2+numeroCombinacionesProposiciones);
-        implicacion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones, numeroProposiciones*2+numeroCombinacionesProposiciones);
+        disyuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones,
+                numeroProposiciones * 2);
+        conjuncion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones,
+                numeroProposiciones * 2 + numeroCombinacionesProposiciones);
+        implicacion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones,
+                numeroProposiciones * 2 + numeroCombinacionesProposiciones);
+        dobleImplicacion(tablaVerdad, 0, numeroCombinacionesProposiciones, 0, 1, numeroProposiciones,
+                numerOperaciones/*numeroProposiciones * 2 + numeroCombinacionesProposiciones*2*/);
         imprimirTablaVerdad(tablaVerdad);
     }
 
@@ -110,7 +116,7 @@ public class App {
     }
 
     public static String[][] conjuncion(String[][] tablaVerdad, int columnas, int numeroCombinacionesProposiciones,
-            int proposicion1, int proposicion2,int numeroProposiciones, int columnaResultado) {
+            int proposicion1, int proposicion2, int numeroProposiciones, int columnaResultado) {
         if (numeroCombinacionesProposiciones > columnas) {
             tablaVerdad[0][columnaResultado] = tablaVerdad[0][proposicion1] + "^" + tablaVerdad[0][proposicion2];
             for (int i = 1; i < tablaVerdad.length; i++) {
@@ -131,8 +137,9 @@ public class App {
         }
         return tablaVerdad;
     }
+
     public static String[][] implicacion(String[][] tablaVerdad, int columnas, int numeroCombinacionesProposiciones,
-            int proposicion1, int proposicion2,int numeroProposiciones, int columnaResultado) {
+            int proposicion1, int proposicion2, int numeroProposiciones, int columnaResultado) {
         if (numeroCombinacionesProposiciones > columnas) {
             tablaVerdad[0][columnaResultado] = tablaVerdad[0][proposicion1] + "->" + tablaVerdad[0][proposicion2];
             for (int i = 1; i < tablaVerdad.length; i++) {
@@ -153,4 +160,30 @@ public class App {
         }
         return tablaVerdad;
     }
+    
+    public static String[][] dobleImplicacion(String[][] tablaVerdad, int columnas, int numeroCombinacionesProposiciones,
+            int proposicion1, int proposicion2, int numeroProposiciones, int columnaResultado) {
+        if (numeroCombinacionesProposiciones > columnas) {
+            tablaVerdad[0][columnaResultado] = tablaVerdad[0][proposicion1] + "<->" + tablaVerdad[0][proposicion2];
+            for (int i = 1; i < tablaVerdad.length; i++) {
+                if ((tablaVerdad[i][proposicion1].equals("V") && tablaVerdad[i][proposicion2].equals("V")) ||
+                            (tablaVerdad[i][proposicion1].equals("F") && tablaVerdad[i][proposicion2].equals("F"))) {
+                        tablaVerdad[i][columnaResultado] = "  V";
+                    } else {
+                        tablaVerdad[i][columnaResultado] = "  F";
+                    }
+            }
+            if (proposicion2 < numeroProposiciones - 1) {
+                proposicion2++;
+            } else {
+                proposicion1++;
+                proposicion2 = proposicion1 + 1;
+            }
+
+            return dobleImplicacion(tablaVerdad, ++columnas, numeroCombinacionesProposiciones, proposicion1,
+                    proposicion2, numeroProposiciones, ++columnaResultado);
+        }
+        return tablaVerdad;
+    }
+
 }
