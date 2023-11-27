@@ -20,7 +20,7 @@ public class requerido {
         negacion(tablaVerdad, numeroProposiciones);
         disyuncion(tablaVerdad, numeroProposiciones + 1);
         conjuncion(tablaVerdad, numeroProposiciones + 2);
-        dobleImplicacion(tablaVerdad, numeroProposiciones +3);
+        dobleImplicacion(tablaVerdad, numeroProposiciones + 3);
         imprimirTablaVerdad(tablaVerdad);
     }
 
