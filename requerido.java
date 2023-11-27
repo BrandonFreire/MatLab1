@@ -21,7 +21,9 @@ public class requerido {
         disyuncion(tablaVerdad, numeroProposiciones + 1);
         conjuncion(tablaVerdad, numeroProposiciones + 2);
         dobleImplicacion(tablaVerdad, numeroProposiciones + 3);
+        implicacion(tablaVerdad, numeroProposiciones + 4);
         imprimirTablaVerdad(tablaVerdad);
+        ingresoDatos.close();
     }
 
     /**
@@ -136,6 +138,7 @@ public class requerido {
         }
         return tablaVerdad;
     }
+
     /**
      * Calcula la doble implicacion (metodo recursivo)
      * 
@@ -143,15 +146,31 @@ public class requerido {
      * @param columnaResultado
      * @return
      */
-    public static String[][] dobleImplicacion(String[][] tablaVerdad, int columnaResultado){
+    public static String[][] dobleImplicacion(String[][] tablaVerdad, int columnaResultado) {
         tablaVerdad[0][columnaResultado] = tablaVerdad[0][0] + "<->" + tablaVerdad[0][1];
-        for(int i = 1; i < tablaVerdad.length; i++){
-            if(tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("V")){
-                tablaVerdad[i][columnaResultado]=" V";
-            }else{
-
+        for (int i = 1; i < tablaVerdad.length; i++) {
+            if ((tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("V")) || ((tablaVerdad[i][0].equals("F")) && (tablaVerdad[i][1].equals("F")))) {
+                tablaVerdad[i][columnaResultado] = "  V";
+            } else {
+                tablaVerdad[i][columnaResultado] = "  F";
             }
         }
         return tablaVerdad;
     }
-} 
+
+    /**
+     * Calcula la implicacion
+     * 
+     * @param tablaVerdad
+     * @param ubicacionColumna
+     * @return tablaVerdad
+     */
+    public static String[][] implicacion(String[][] tablaVerdad, int ubicacionColumna) {
+        tablaVerdad[0][ubicacionColumna] = tablaVerdad[0][0] + "->" + tablaVerdad[0][1];
+        for (int i = 1; i < tablaVerdad.length; i++) {
+            tablaVerdad[i][ubicacionColumna] = (tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("F")) ? " F"
+                    : " V";
+        }
+        return tablaVerdad;
+    }
+}
