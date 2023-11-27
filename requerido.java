@@ -159,7 +159,7 @@ public class requerido {
     public static String[][] implicacion(String[][] tablaVerdad, int ubicacionColumna) {
         tablaVerdad[0][ubicacionColumna] = tablaVerdad[0][0] + "->" + tablaVerdad[0][1];
         for (int i=1; i<tablaVerdad.length;i++) {
-            tablaVerdad[i][ubicacionColumna] = (tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("F")) ? "F" : "V";
+            tablaVerdad[i][ubicacionColumna] = (tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("F")) ? " F" : " V";
         }
         return tablaVerdad;
     }
