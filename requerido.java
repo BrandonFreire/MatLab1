@@ -156,6 +156,13 @@ public class requerido {
         }
         return tablaVerdad;
     }
+    /**
+     * Calcula la implicacion
+     * 
+     * @param tablaVerdad
+     * @param ubicacionColumna
+     * @return tablaVerdad
+     */
     public static String[][] implicacion(String[][] tablaVerdad, int ubicacionColumna) {
         tablaVerdad[0][ubicacionColumna] = tablaVerdad[0][0] + "->" + tablaVerdad[0][1];
         for (int i=1; i<tablaVerdad.length;i++) {
