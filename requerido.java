@@ -21,7 +21,9 @@ public class requerido {
         disyuncion(tablaVerdad, numeroProposiciones + 1);
         conjuncion(tablaVerdad, numeroProposiciones + 2);
         dobleImplicacion(tablaVerdad, numeroProposiciones +3);
+        implicacion(tablaVerdad,numeroProposiciones+4);
         imprimirTablaVerdad(tablaVerdad);
+        ingresoDatos.close();
     }
 
     /**
@@ -151,6 +153,13 @@ public class requerido {
             }else{
 
             }
+        }
+        return tablaVerdad;
+    }
+    public static String[][] implicacion(String[][] tablaVerdad, int ubicacionColumna) {
+        tablaVerdad[0][ubicacionColumna] = tablaVerdad[0][0] + "->" + tablaVerdad[0][1];
+        for (int i=1; i<tablaVerdad.length;i++) {
+            tablaVerdad[i][ubicacionColumna] = (tablaVerdad[i][0].equals("V") && tablaVerdad[i][1].equals("F")) ? "F" : "V";
         }
         return tablaVerdad;
     }
